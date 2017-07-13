@@ -10,7 +10,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.visionin.shop.R;
+import com.visionin.shop.utils.NetWorkUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        Logger.d(NetWorkUtils.getLocalIpAddress(getApplicationContext()));
     }
 
     @OnClick(R.id.email_sign_in_button)
