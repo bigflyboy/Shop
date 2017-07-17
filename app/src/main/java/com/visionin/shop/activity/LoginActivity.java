@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.visionin.shop.Beans.LoginBean;
 import com.visionin.shop.R;
 import com.visionin.shop.http.API_ENUM;
 import com.visionin.shop.http.CallbackForRequest;
@@ -87,24 +88,14 @@ public class LoginActivity extends BaseActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            request(API_ENUM.LOGIN, new CallbackForRequest() {
+            request(API_ENUM.LOGIN, new CallbackForRequest<LoginBean>() {
                 @Override
-                public void doSuccess(Object bean) {
-
-                }
-
-                @Override
-                public void doSuccess() {
-                    Toast.makeText(getApplicationContext(), "hsduehskjdf", Toast.LENGTH_SHORT).show();
+                public void doSuccess(LoginBean bean) {
+                    Toast.makeText(getApplicationContext(), bean.getModel().getToken(),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void doError(Object object) {
-
-                }
-
-                @Override
-                public void doError() {
 
                 }
 
@@ -118,7 +109,7 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public API_ENUM getApiEnum() {
-                    return null;
+                    return API_ENUM.LOGIN;
                 }
             });
 //            mAuthTask = new UserLoginTask(email, password);

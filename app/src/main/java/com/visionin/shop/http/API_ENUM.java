@@ -1,11 +1,13 @@
 package com.visionin.shop.http;
 
+import com.visionin.shop.Beans.LoginBean;
+
 /**
  * Created by wangzhiyuan on 2017/7/12.
  */
 
 public enum API_ENUM {
-    LOGIN("/ApiLogin", HTTP_METHOD.POST),
+    LOGIN("/ApiLogin", HTTP_METHOD.POST, LoginBean.class),
     GOODS_LIST("/goods_list", HTTP_METHOD.GET);
 
 

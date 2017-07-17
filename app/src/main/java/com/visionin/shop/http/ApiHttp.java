@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.visionin.shop.Beans.LoginBean;
 import com.visionin.shop.utils.Config;
 
 import java.io.IOException;
@@ -60,7 +62,6 @@ public class ApiHttp {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.doError();
                     }
                 });
             }
@@ -71,7 +72,6 @@ public class ApiHttp {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.doSuccess();
                     }
                 });
             }
@@ -105,18 +105,27 @@ public class ApiHttp {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.doError();
                     }
                 });
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 Handler mainHandler = new Handler(Looper.getMainLooper());
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.doSuccess();
+                        try {
+                            String data = response.body().string();
+                            Class bean = Class.forName(mCallback._getClass().getName());
+                            Object obj = bean.newInstance();
+                            Gson gson = new Gson();
+                            obj = gson.fromJson(data, LoginBean.class);
+                            mCallback.doSuccess(obj);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
