@@ -13,7 +13,7 @@ import com.visionin.shop.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BigScreenActivity extends AppCompatActivity {
+public class BigScreenActivity extends BaseActivity {
 
     private static final String TAG = "BigScreenActivity";
 

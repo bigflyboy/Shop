@@ -2,24 +2,38 @@ package com.visionin.shop.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.visionin.shop.R;
+import com.visionin.shop.http.API_ENUM;
+import com.visionin.shop.http.CallbackForRequest;
 import com.visionin.shop.utils.NetWorkUtils;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.email)
     AutoCompleteTextView mEmailView;
@@ -27,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mPasswordView;
     @BindView(R.id.email_sign_in_button)
     Button mButton;
+    @BindView(R.id.textview)
+    TextView mTextview;
 
     private UserLoginTask mAuthTask = null;
 
@@ -39,12 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Logger.addLogAdapter(new AndroidLogAdapter());
-        Logger.d(NetWorkUtils.getLocalIpAddress(getApplicationContext()));
     }
 
     @OnClick(R.id.email_sign_in_button)
-    public void attemptLogin(View view){
+    public void attemptLogin(View view) {
         if (mAuthTask != null) {
             return;
         }
@@ -73,9 +87,42 @@ public class LoginActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
+            request(API_ENUM.LOGIN, new CallbackForRequest() {
+                @Override
+                public void doSuccess(Object bean) {
 
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+                }
+
+                @Override
+                public void doSuccess() {
+                    Toast.makeText(getApplicationContext(), "hsduehskjdf", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void doError(Object object) {
+
+                }
+
+                @Override
+                public void doError() {
+
+                }
+
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("member_username", "xiaoxiaopolang");
+                    map.put("member_password", "xiaoxiaopolang");
+                    return map;
+                }
+
+                @Override
+                public API_ENUM getApiEnum() {
+                    return null;
+                }
+            });
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
         }
     }
 
@@ -88,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private final String mEmail;
         private final String mPassword;
+        private String data;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -96,37 +144,49 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            String url = "http://192.168.1.105:8080/BigScreen/api/ApiLogin";
+            OkHttpClient okHttpClient = new OkHttpClient();
+            FormBody.Builder param=new FormBody.Builder();
+            param.add("member_username", "xiaoxiaopolang");
+            param.add("member_password", "xiaoxiaopolang");
 
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(param.build())
+                    .build();
+            Call call = okHttpClient.newCall(request);
             try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                Response response = call.execute();
+                if (response != null) {
+                    //System.out.println(response.body().string());
+                    data = response.body().string();
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    Logger.addLogAdapter(new AndroidLogAdapter());
+                    Logger.e(data);
+                    return true;
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            // TODO: register the new account here.
             return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-
-            if (success) {
-                startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            if(data != null){
+                mTextview.setText(data);
             }
+
+//            if (success) {
+//                startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
+//                finish();
+//            } else {
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                mPasswordView.requestFocus();
+//            }
         }
 
         @Override

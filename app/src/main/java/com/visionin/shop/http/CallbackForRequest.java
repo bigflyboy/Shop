@@ -15,18 +15,23 @@ public abstract class CallbackForRequest<T> {
 
     public abstract void doSuccess(T bean);// throws JSONException;
 
+    public abstract void doSuccess();
+
     /**
      * 不重写时,返回不做任何处理
      * @param object
      */
     public abstract void doError(Object object);
 
+    public abstract void doError();
+
+
     /**
      * 请求的基本参数,不重写时使用基本参数
      *
      * @return
      */
-    public abstract Map<String, Object> getParams();/* {
+    public abstract Map<String, String> getParams();/* {
         return null;
     }*/
 

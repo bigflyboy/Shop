@@ -5,13 +5,13 @@ package com.visionin.shop.http;
  */
 
 public enum API_ENUM {
-    LOGIN("/login", HTTP_METHOD.POST),
+    LOGIN("/ApiLogin", HTTP_METHOD.POST),
     GOODS_LIST("/goods_list", HTTP_METHOD.GET);
 
 
-    String mPath;
-    HTTP_METHOD mRequestMethod;
-    Class mClass;
+    public String mPath;
+    public HTTP_METHOD mRequestMethod;
+    public Class mClass;
 
     private static final String TAG = "API_ENUM";
 

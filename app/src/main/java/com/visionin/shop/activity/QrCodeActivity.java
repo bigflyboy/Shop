@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class QrCodeActivity extends AppCompatActivity {
+public class QrCodeActivity extends BaseActivity {
 
     @BindView(R.id.openQrCodeScan) Button openQrCodeScan;
     @BindView(R.id.text) EditText text;
