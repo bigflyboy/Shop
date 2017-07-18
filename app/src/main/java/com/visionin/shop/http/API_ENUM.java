@@ -1,5 +1,6 @@
 package com.visionin.shop.http;
 
+import com.visionin.shop.Beans.DNSBean;
 import com.visionin.shop.Beans.LoginBean;
 
 /**
@@ -8,6 +9,7 @@ import com.visionin.shop.Beans.LoginBean;
 
 public enum API_ENUM {
     LOGIN("/ApiLogin", HTTP_METHOD.POST, LoginBean.class),
+    DNS("/ApiDNS?action=report_ip", HTTP_METHOD.POST, DNSBean.class),
     GOODS_LIST("/goods_list", HTTP_METHOD.GET);
 
 

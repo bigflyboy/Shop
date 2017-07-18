@@ -5,5 +5,7 @@ package com.visionin.shop.utils;
  */
 
 public interface Config {
-    public static final String HOST= "http://192.168.1.105:8080/";
+    public static final String HOST= "http://192.168.1.108:8080/";
+
+    public static final String TOKEN  = "token";
 }

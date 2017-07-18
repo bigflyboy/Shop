@@ -44,8 +44,9 @@ public class ApiHttp {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request.Builder requestBuilder = new Request.Builder()
                 .url(Config.HOST + url + path);
-        if(mCallback.getParams()!=null) {
-            Iterator<Map.Entry<String, String>> entries = mCallback.getParams().entrySet().iterator();
+        Map<String, String> map = mCallback.getParams();
+        if(map!=null) {
+            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
 
             while (entries.hasNext()) {
                 Map.Entry<String, String> entry = entries.next();
@@ -82,8 +83,9 @@ public class ApiHttp {
     protected void doPost(String path){
         OkHttpClient okHttpClient = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        if(mCallback.getParams()!=null) {
-            Iterator<Map.Entry<String, String>> entries = mCallback.getParams().entrySet().iterator();
+        Map<String, String> map = mCallback.getParams();
+        if(map!=null) {
+            Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
 
             while (entries.hasNext()) {
                 Map.Entry<String, String> entry = entries.next();
@@ -120,7 +122,7 @@ public class ApiHttp {
                             Class bean = Class.forName(mCallback._getClass().getName());
                             Object obj = bean.newInstance();
                             Gson gson = new Gson();
-                            obj = gson.fromJson(data, LoginBean.class);
+                            obj = gson.fromJson(data, mCallback._getClass());
                             mCallback.doSuccess(obj);
 
                         } catch (Exception e) {

@@ -17,7 +17,9 @@ import com.visionin.shop.Beans.LoginBean;
 import com.visionin.shop.R;
 import com.visionin.shop.http.API_ENUM;
 import com.visionin.shop.http.CallbackForRequest;
+import com.visionin.shop.utils.Config;
 import com.visionin.shop.utils.NetWorkUtils;
+import com.visionin.shop.utils.SharedPreferencesUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -67,8 +69,8 @@ public class LoginActivity extends BaseActivity {
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        String email = mEmailView.getText().toString().trim();
-        String password = mPasswordView.getText().toString().trim();
+        final String email = mEmailView.getText().toString().trim();
+        final String password = mPasswordView.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
@@ -91,7 +93,14 @@ public class LoginActivity extends BaseActivity {
             request(API_ENUM.LOGIN, new CallbackForRequest<LoginBean>() {
                 @Override
                 public void doSuccess(LoginBean bean) {
-                    Toast.makeText(getApplicationContext(), bean.getModel().getToken(),Toast.LENGTH_SHORT).show();
+                    SharedPreferencesUtils.setParam(getApplicationContext(), Config.TOKEN, bean.getModel().getToken());
+
+                    startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
+
+
+                    finish();
+                    String token = (String)SharedPreferencesUtils.getParam(getApplicationContext(), Config.TOKEN, "");
+                    Toast.makeText(getApplicationContext(), token,Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -102,8 +111,8 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("member_username", "xiaoxiaopolang");
-                    map.put("member_password", "xiaoxiaopolang");
+                    map.put("member_username", email);
+                    map.put("member_password", password);
                     return map;
                 }
 
@@ -171,13 +180,13 @@ public class LoginActivity extends BaseActivity {
                 mTextview.setText(data);
             }
 
-//            if (success) {
-//                startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
-//                finish();
-//            } else {
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
-//            }
+            if (success) {
+                startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
         }
 
         @Override
