@@ -47,8 +47,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.textview)
     TextView mTextview;
 
-    private UserLoginTask mAuthTask = null;
-
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -62,9 +60,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.email_sign_in_button)
     public void attemptLogin(View view) {
-        if (mAuthTask != null) {
-            return;
-        }
+
 
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -111,8 +107,8 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("member_username", email);
-                    map.put("member_password", password);
+                    map.put("member_username", "xiaoxiaopolang");
+                    map.put("member_password", "xiaoxiaopolang");
                     return map;
                 }
 
@@ -131,67 +127,9 @@ public class LoginActivity extends BaseActivity {
         return password.length() > 4;
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        private final String mEmail;
-        private final String mPassword;
-        private String data;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            String url = "http://192.168.1.105:8080/BigScreen/api/ApiLogin";
-            OkHttpClient okHttpClient = new OkHttpClient();
-            FormBody.Builder param=new FormBody.Builder();
-            param.add("member_username", "xiaoxiaopolang");
-            param.add("member_password", "xiaoxiaopolang");
-
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(param.build())
-                    .build();
-            Call call = okHttpClient.newCall(request);
-            try {
-                Response response = call.execute();
-                if (response != null) {
-                    //System.out.println(response.body().string());
-                    data = response.body().string();
-
-                    Logger.addLogAdapter(new AndroidLogAdapter());
-                    Logger.e(data);
-                    return true;
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            if(data != null){
-                mTextview.setText(data);
-            }
-
-            if (success) {
-                startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-        }
     }
 }

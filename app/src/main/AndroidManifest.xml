@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.QrCodeActivity">
-
         </activity>
         <activity
             android:name="com.google.zxing.activity.CaptureActivity"
@@ -35,8 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.BigScreenActivity">
+        <activity android:name=".activity.BigScreenActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".activity.ShopperActivity">
 
         </activity>
     </application>
