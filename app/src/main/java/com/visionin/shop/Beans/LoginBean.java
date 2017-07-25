@@ -6,9 +6,10 @@ package com.visionin.shop.Beans;
 
 public class LoginBean {
 
+
     /**
      * code : 200
-     * model : {"token":"5lc2211t82j2nfoxu8z01bwffdngsufb"}
+     * model : {"token":"5lc2211t82j2nfoxu8z01bwffdngsufb","type":1}
      * offset : 0
      */
 
@@ -43,9 +44,11 @@ public class LoginBean {
     public static class ModelBean {
         /**
          * token : 5lc2211t82j2nfoxu8z01bwffdngsufb
+         * type : 1
          */
 
         private String token;
+        private int type;
 
         public String getToken() {
             return token;
@@ -53,6 +56,14 @@ public class LoginBean {
 
         public void setToken(String token) {
             this.token = token;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
         }
     }
 }

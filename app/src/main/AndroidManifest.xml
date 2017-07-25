@@ -34,13 +34,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.BigScreenActivity"
-                  android:launchMode="singleTask"
-                  android:screenOrientation="landscape">
+        <activity
+            android:name=".activity.BigScreenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
         </activity>
         <activity android:name=".activity.ShopperActivity">
-
         </activity>
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
     </application>
 
 </manifest>

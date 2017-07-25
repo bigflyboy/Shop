@@ -1,10 +1,14 @@
 package com.visionin.shop.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import com.visionin.shop.Beans.LoginBean;
 import com.visionin.shop.R;
 import com.visionin.shop.http.API_ENUM;
 import com.visionin.shop.http.CallbackForRequest;
+import com.visionin.shop.service.MyService;
 import com.visionin.shop.utils.Config;
 import com.visionin.shop.utils.NetWorkUtils;
 import com.visionin.shop.utils.SharedPreferencesUtils;
@@ -56,6 +61,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Intent intent = new Intent(this, MyService.class);
+
     }
 
     @OnClick(R.id.email_sign_in_button)
