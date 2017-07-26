@@ -37,7 +37,8 @@
         <activity
             android:name=".activity.BigScreenActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/AppNoActionBar">
         </activity>
         <activity android:name=".activity.ShopperActivity">
         </activity>
@@ -47,6 +48,14 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <activity
+            android:name=".activity.ScreenSetActivity"
+            android:label="大屏端管理界面">
+        </activity>
+        <activity android:name=".activity.ShopperSetActivity"
+                  android:label="店员端管理界面">
+        </activity>
     </application>
 
 </manifest>

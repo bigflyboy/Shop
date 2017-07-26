@@ -1,6 +1,7 @@
 package com.visionin.shop.http;
 
 import com.visionin.shop.Beans.DNSBean;
+import com.visionin.shop.Beans.GoodsBean;
 import com.visionin.shop.Beans.LoginBean;
 
 /**
@@ -8,9 +9,10 @@ import com.visionin.shop.Beans.LoginBean;
  */
 
 public enum API_ENUM {
-    LOGIN("/ApiLogin", HTTP_METHOD.POST, LoginBean.class),
-    DNS("/ApiDNS?action=report_ip", HTTP_METHOD.POST, DNSBean.class),
-    GOODS_LIST("/goods_list", HTTP_METHOD.GET);
+    LOGIN("api/ApiLogin", HTTP_METHOD.POST, LoginBean.class),
+    GOODS_LIST("Admin/Goods/ServletGoods?action=list_goods_all", HTTP_METHOD.POST, GoodsBean.class),
+    DNS("api/ApiDNS?action=report_ip", HTTP_METHOD.POST, DNSBean.class),
+    GOOD_BY_SCAN("Admin/Goods/ServletGoods?action=list_goods_byNumber", HTTP_METHOD.POST, GoodsBean.class);
 
 
     public String mPath;

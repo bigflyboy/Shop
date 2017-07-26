@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class ApiHttp {
     private CallbackForRequest mCallback;
     private API_ENUM mAPI_enum;
-    private String url = "BigScreen/api";
+    private String url = "BigScreen/";
 
     public ApiHttp(API_ENUM apiEnum, CallbackForRequest callback){
         mAPI_enum = apiEnum;
@@ -107,7 +107,7 @@ public class ApiHttp {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-
+                        mCallback.doError(new String("网络请求错误!"));
                     }
                 });
             }
@@ -115,11 +115,12 @@ public class ApiHttp {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 Handler mainHandler = new Handler(Looper.getMainLooper());
+                final String data = response.body().string();
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            String data = response.body().string();
+
                             Class bean = Class.forName(mCallback._getClass().getName());
                             Object obj = bean.newInstance();
                             Gson gson = new Gson();

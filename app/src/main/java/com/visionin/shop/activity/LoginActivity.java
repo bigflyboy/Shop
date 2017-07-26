@@ -61,8 +61,12 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Intent intent = new Intent(this, MyService.class);
-
+        String email = (String) SharedPreferencesUtils.getParam(getApplicationContext(), Config.NEW_EMAIL, "");
+        String password = (String) SharedPreferencesUtils.getParam(getApplicationContext(), Config.NEW_PASSWORD, "");
+        if(email!=null&&password!=null){
+            mEmailView.setText(email);
+            mPasswordView.setText(password);
+        }
     }
 
     @OnClick(R.id.email_sign_in_button)
@@ -96,31 +100,46 @@ public class LoginActivity extends BaseActivity {
             request(API_ENUM.LOGIN, new CallbackForRequest<LoginBean>() {
                 @Override
                 public void doSuccess(LoginBean bean) {
-                    SharedPreferencesUtils.setParam(getApplicationContext(), Config.TOKEN, bean.getModel().getToken());
+                    mButton.setEnabled(true);
+                    if(bean.getCode() == 200){
+                        SharedPreferencesUtils.setParam(getApplicationContext(), Config.TOKEN, bean.getModel().getToken());
+                        SharedPreferencesUtils.setParam(getApplicationContext(), Config.NEW_EMAIL, email);
 
-                    startActivity(new Intent(LoginActivity.this, BigScreenActivity.class));
+                        SharedPreferencesUtils.setParam(getApplicationContext(), Config.NEW_PASSWORD, password);
+                        if(bean.getModel().getType()==2){
+                            startActivity(new Intent(LoginActivity.this, ScreenSetActivity.class));
+                        }else if(bean.getModel().getType()==1){
+                            startActivity(new Intent(LoginActivity.this, ShopperSetActivity.class));
+                        }
 
 
-                    finish();
-                    String token = (String)SharedPreferencesUtils.getParam(getApplicationContext(), Config.TOKEN, "");
-                    Toast.makeText(getApplicationContext(), token,Toast.LENGTH_SHORT).show();
+
+
+                        finish();
+//                        String token = (String)SharedPreferencesUtils.getParam(getApplicationContext(), Config.TOKEN, "");
+                    }else{
+                        Toast.makeText(getApplicationContext(), "网络请求错误！",Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
 
                 @Override
                 public void doError(Object object) {
-
+                    Toast.makeText(getApplicationContext(), "网络连接错误！",Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("member_username", "xiaoxiaopolang");
-                    map.put("member_password", "xiaoxiaopolang");
+                    map.put("member_username", email);
+                    map.put("member_password", password);
                     return map;
                 }
 
                 @Override
                 public API_ENUM getApiEnum() {
+                    mButton.setEnabled(false);
                     return API_ENUM.LOGIN;
                 }
             });
