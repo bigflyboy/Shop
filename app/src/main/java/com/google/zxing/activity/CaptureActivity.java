@@ -17,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
@@ -40,7 +41,9 @@ import com.google.zxing.decoding.InactivityTimer;
 import com.google.zxing.decoding.RGBLuminanceSource;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.view.ViewfinderView;
+import com.orhanobut.logger.Logger;
 import com.visionin.shop.R;
+import com.visionin.shop.activity.GoodListActivity;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -73,6 +76,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     //	private Button cancelScanButton;
     public static final int RESULT_CODE_QR_SCAN = 0xA1;
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
+    public long starttime,stoptime;
     /**
      * Called when the activity is first created.
      */
@@ -93,7 +97,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 //		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-
+        starttime = System.currentTimeMillis();
         //添加toolbar
 //        addToolbar();
     }
@@ -277,7 +281,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         if (TextUtils.isEmpty(resultString)) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
-            Intent resultIntent = new Intent();
+            Intent resultIntent = new Intent(this, GoodListActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, resultString);
             System.out.println("sssssssssssssssss scan 0 = " + resultString);
@@ -285,7 +289,12 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);
             resultIntent.putExtras(bundle);
-            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
+            stoptime = System.currentTimeMillis();
+            long time = starttime-stoptime;
+            Log.e("CaptureActivity:", time + "");
+            startActivity(resultIntent);
+//            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
+
         }
         CaptureActivity.this.finish();
     }

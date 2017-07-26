@@ -48,10 +48,13 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         GoodsBean.ModelBean good = mGoodList.getModel().get(position);
-        GoodsBean.ModelBean.ImageBean imageUrl= good.getImage().get(0);
-        ImageLoader.getInstance().displayImage(mImageUrl+imageUrl.getImage_url(), holder.goodImage, mOptions);
+        if(good.getImage()!=null&&good.getImage().size()>0){
+            GoodsBean.ModelBean.ImageBean imageUrl= good.getImage().get(0);
+            ImageLoader.getInstance().displayImage(mImageUrl+imageUrl.getImage_url(), holder.goodImage, mOptions);
+        }
+
         holder.goodName.setText(""+good.getGoods_name());
         holder.goodPrice.setText("商品价格："+good.getGoods_c_price());
         holder.goodManu.setText("商品厂商："+good.getGoods_manufacturer());

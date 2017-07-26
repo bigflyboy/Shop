@@ -1,6 +1,8 @@
 package com.visionin.shop.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopperSetActivity extends BaseActivity {
+public class ShopperSetActivity extends BaseActivity{
 
-    @BindView(R.id.recycler_goods) RecyclerView mRecyclerView;
 
     //打开扫描界面请求码
     private int REQUEST_CODE = 0x01;
@@ -63,7 +64,7 @@ public class ShopperSetActivity extends BaseActivity {
         switch (item.getItemId()){
             case R.id.action_scan:
                 Intent intent = new Intent(this, CaptureActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -74,44 +75,42 @@ public class ShopperSetActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Bundle bundle = data.getExtras();
+        final String str = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN+"");
+        if(requestCode == REQUEST_CODE&&resultCode==RESULT_OK){
+            request(API_ENUM.GOOD_BY_SCAN, new CallbackForRequest<GoodsBean>() {
+                @Override
+                public void doSuccess(GoodsBean bean) {
+                    if(bean.getCode()==200){
+                        Toast.makeText(getApplicationContext(),bean.getModel().get(0).getGoods_name()+"",Toast.LENGTH_SHORT).show();
+                    }
+                }
 
+                @Override
+                public void doError(Object object) {
+
+                }
+
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("goods_number", str);
+                    return map;
+                }
+
+                @Override
+                public API_ENUM getApiEnum() {
+                    return API_ENUM.GOOD_BY_SCAN;
+                }
+            });
+        }
     }
 
     @OnClick(R.id.shopper_get_goods)
     public void getGoods(){
-        request(API_ENUM.GOODS_LIST, new CallbackForRequest<GoodsBean>() {
+        Intent intent = new Intent(this, ShopperActivity.class);
+        startActivity(intent);
 
-            @Override
-            public void doSuccess(GoodsBean bean) {
-                Toast.makeText(getApplicationContext(),bean.getCode()+"",Toast.LENGTH_SHORT).show();
-                if(bean.getCode()==200){
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(ShopperSetActivity.this);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                    GoodAdapter adapter = new GoodAdapter(bean);
-                    mRecyclerView.setAdapter(adapter);
-                }
-
-//                Toast.makeText(getApplicationContext(),bean.getModel().get(0).getGoods_name(),Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void doError(Object object) {
-                Toast.makeText(getApplicationContext(),"网络请求失败！",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("offset", "0");
-                map.put("limit", "16");
-                return map;
-            }
-
-            @Override
-            public API_ENUM getApiEnum() {
-                return API_ENUM.GOODS_LIST;
-            }
-        });
     }
 
 }
