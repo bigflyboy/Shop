@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.visionin.shop.activity.BigScreenActivity">
+    <TextView
+
+        android:visibility="gone"
+        android:text="屏幕已锁定！"
+        android:textSize="24sp"
+        android:layout_centerInParent="true"
+        android:id="@+id/text_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <WebView
         android:layout_width="match_parent"
@@ -14,4 +23,6 @@
 
     </WebView>
 
-</android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

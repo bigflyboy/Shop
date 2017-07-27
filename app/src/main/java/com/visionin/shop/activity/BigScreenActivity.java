@@ -1,10 +1,14 @@
 package com.visionin.shop.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.koushikdutta.async.http.WebSocket;
@@ -37,6 +41,25 @@ public class BigScreenActivity extends BaseActivity {
     private AsyncHttpServer server;
 
     @BindView(R.id.web_view) WebView mWebView;
+
+    @BindView(R.id.text_lock) TextView mTextView;
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+            if(msg.what==1){
+                Logger.e(TAG, msg.what+"");
+                mWebView.setVisibility(View.GONE);
+                mTextView.setVisibility(View.VISIBLE);
+            }else if(msg.what==0){
+                Logger.e(TAG, msg.what+"");
+                mWebView.setVisibility(View.VISIBLE);
+                mTextView.setVisibility(View.GONE);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,28 +105,41 @@ public class BigScreenActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //server.stop();
+        server.stop();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        server = new AsyncHttpServer();
-//
-//        List<WebSocket> _sockets = new ArrayList<WebSocket>();
-//
-//        server.get("/", new HttpServerRequestCallback() {
-//            @Override
-//            public void onRequest(AsyncHttpServerRequest request, AsyncHttpServerResponse response) {
-//                response.send("Hello!!!");
-//            }
-//        });
-//
-//// listen on port 5000
-//        server.listen(5005);
+        server = new AsyncHttpServer();
+
+        server.get("/lockscreen", new HttpServerRequestCallback() {
+            @Override
+            public void onRequest(AsyncHttpServerRequest request, AsyncHttpServerResponse response) {
+
+                String status = request.getQuery().getString("status");
+
+                if(status.equals("true")){
+                    Message msg = Message.obtain();
+                    msg.what = 1;
+                    mHandler.sendMessage(msg);
+                }else if(status.equals("false")){
+                    Message msg = Message.obtain();
+                    msg.what = 0;
+                    mHandler.sendMessage(msg);
+                }
+                response.send("wangzhiyuan");
+
+            }
+        });
+
+// listen on port 5000
+        server.listen(5005);
 //// browsing http://localhost:5000 will return Hello!!!
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(Config.HOST + "BigScreen/BigScreen/");
 
     }
+
+
 }
