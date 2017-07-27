@@ -23,7 +23,7 @@ import java.util.List;
 
 public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.ViewHolder> {
 
-    private GoodsBean mGoodList;
+    private List<GoodsBean.ModelBean> mGoodList;
     ImageSize mImageSize;
     DisplayImageOptions mOptions;
     String mImageUrl = "http://t00.memoyun.com:8080/BigScreen/Upload/Image.jsp?image=";
@@ -38,18 +38,19 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.ViewHolder> {
         mOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
+                .showImageOnFail(R.mipmap.ic_launcher)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
         return holder;
     }
 
-    public GoodAdapter(GoodsBean list){
+    public GoodAdapter(List<GoodsBean.ModelBean> list){
         mGoodList = list;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GoodsBean.ModelBean good = mGoodList.getModel().get(position);
+        GoodsBean.ModelBean good = mGoodList.get(position);
         if(good.getImage()!=null&&good.getImage().size()>0){
             GoodsBean.ModelBean.ImageBean imageUrl= good.getImage().get(0);
             ImageLoader.getInstance().displayImage(mImageUrl+imageUrl.getImage_url(), holder.goodImage, mOptions);
@@ -64,7 +65,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mGoodList.getModel().size();
+        return mGoodList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

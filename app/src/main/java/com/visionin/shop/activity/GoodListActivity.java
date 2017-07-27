@@ -45,11 +45,7 @@ public class GoodListActivity extends BaseActivity {
             @Override
             public void doSuccess(GoodsBean bean) {
                 if(bean.getCode()==200){
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(GoodListActivity.this);
-//                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    mRecyclerView.setLayoutManager(layoutManager);
-                    GoodAdapter adapter = new GoodAdapter(bean);
-                    mRecyclerView.setAdapter(adapter);
+
                 }
             }
 
