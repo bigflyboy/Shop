@@ -50,13 +50,11 @@ public class BigScreenActivity extends BaseActivity {
 
             super.handleMessage(msg);
             if(msg.what==1){
-                Logger.e(TAG, msg.what+"");
-                mWebView.setVisibility(View.GONE);
-                mTextView.setVisibility(View.VISIBLE);
+                Bundle bundle = msg.getData();
+                String goods_number = bundle.getString("goods_number");
+                Toast.makeText(getApplicationContext(), goods_number+"", Toast.LENGTH_SHORT).show();
             }else if(msg.what==0){
-                Logger.e(TAG, msg.what+"");
-                mWebView.setVisibility(View.VISIBLE);
-                mTextView.setVisibility(View.GONE);
+
             }
         }
     };
@@ -117,18 +115,16 @@ public class BigScreenActivity extends BaseActivity {
             @Override
             public void onRequest(AsyncHttpServerRequest request, AsyncHttpServerResponse response) {
 
-                String status = request.getQuery().getString("status");
+                String status = request.getQuery().getString("goods_number");
+                Logger.e(status);
+                Message msg = Message.obtain();
+                msg.what = 1;
+                Bundle bundle = new Bundle();
+                bundle.putString("goods_number", status);
+                msg.setData(bundle);
+                mHandler.sendMessage(msg);
 
-                if(status.equals("true")){
-                    Message msg = Message.obtain();
-                    msg.what = 1;
-                    mHandler.sendMessage(msg);
-                }else if(status.equals("false")){
-                    Message msg = Message.obtain();
-                    msg.what = 0;
-                    mHandler.sendMessage(msg);
-                }
-                response.send("wangzhiyuan");
+                response.send("ok");
 
             }
         });

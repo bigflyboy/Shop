@@ -97,7 +97,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 //		cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-        starttime = System.currentTimeMillis();
+//        starttime = System.currentTimeMillis();
         //添加toolbar
 //        addToolbar();
     }
@@ -289,9 +289,9 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);
             resultIntent.putExtras(bundle);
-            stoptime = System.currentTimeMillis();
-            long time = starttime-stoptime;
-            Log.e("CaptureActivity:", time + "");
+//            stoptime = System.currentTimeMillis();
+//            long time = starttime-stoptime;
+//            Log.e("CaptureActivity:", time + "");
             startActivity(resultIntent);
 //            this.setResult(RESULT_CODE_QR_SCAN, resultIntent);
 

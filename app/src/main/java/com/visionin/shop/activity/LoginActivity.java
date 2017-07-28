@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.visionin.shop.Beans.LoginBean;
@@ -106,9 +108,9 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferencesUtils.setParam(getApplicationContext(), Config.NEW_EMAIL, email);
 
                         SharedPreferencesUtils.setParam(getApplicationContext(), Config.NEW_PASSWORD, password);
-                        if(bean.getModel().getType()==2){
+                        if(bean.getModel().getType()==1){
                             startActivity(new Intent(LoginActivity.this, ScreenSetActivity.class));
-                        }else if(bean.getModel().getType()==1){
+                        }else if(bean.getModel().getType()==2){
                             startActivity(new Intent(LoginActivity.this, ShopperSetActivity.class));
                         }
 

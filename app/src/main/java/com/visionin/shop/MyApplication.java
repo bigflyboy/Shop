@@ -1,6 +1,7 @@
 package com.visionin.shop;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -23,4 +24,5 @@ public class MyApplication extends Application {
         //Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(configuration);
     }
+
 }

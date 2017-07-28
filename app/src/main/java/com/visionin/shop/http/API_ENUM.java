@@ -11,7 +11,7 @@ import com.visionin.shop.Beans.LoginBean;
 
 public enum API_ENUM {
     LOGIN("api/ApiLogin", HTTP_METHOD.POST, LoginBean.class),
-    GOODS_LIST("Admin/Goods/ServletGoods?action=list_goods_all", HTTP_METHOD.POST, GoodsBean.class),
+    GOODS_LIST("api/ApiGoods?action=list_goods_all", HTTP_METHOD.POST, GoodsBean.class),
     DNS("api/ApiDNS?action=report_ip", HTTP_METHOD.POST, DNSBean.class),
     GOOD_BY_SCAN("api/ApiGoods?action=list_goods_byNumber", HTTP_METHOD.POST, GoodsBean.class),
     GET_DNS("api/ApiDNS?action=get_ip", HTTP_METHOD.POST, GetDNSBean.class);

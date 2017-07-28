@@ -9,6 +9,7 @@ public interface Config {
 
     public static final String TOKEN  = "token";
 
+    public static final String ImageUrl = "http://t00.memoyun.com:8080/BigScreen/Upload/Image.jsp?image=";
 
     public static final String NEW_EMAIL  = "new_email";
 

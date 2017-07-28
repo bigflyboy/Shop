@@ -60,6 +60,9 @@
         </activity>
         <activity android:name=".activity.GoodListActivity">
         </activity>
+        <activity android:name=".activity.ScreenListActivity"
+            android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize">
+        </activity>
     </application>
 
 </manifest>
