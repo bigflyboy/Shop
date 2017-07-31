@@ -60,8 +60,16 @@
         </activity>
         <activity android:name=".activity.GoodListActivity">
         </activity>
-        <activity android:name=".activity.ScreenListActivity"
+        <activity
+            android:name=".activity.ScreenListActivity"
             android:theme="@style/Base.Theme.AppCompat.Dialog.FixedSize">
+        </activity>
+        <activity
+            android:name=".activity.GoodPagerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppNoActionBar">
+        </activity>
+        <activity android:name=".activity.ControlSreenActivity">
         </activity>
     </application>
 

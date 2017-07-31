@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="28sp"
+        android:id="@+id/pager_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="商品名字"/>
+
+    <TextView
+        android:textSize="28sp"
+        android:id="@+id/pager_goods_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="商品价格"/>
+
+    <TextView
+        android:textSize="28sp"
+        android:id="@+id/pager_goods_manu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="商品厂商"/>
+
+    <TextView
+        android:textSize="28sp"
+        android:id="@+id/pager_goods_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="商品备注"/>
+
+</LinearLayout>
