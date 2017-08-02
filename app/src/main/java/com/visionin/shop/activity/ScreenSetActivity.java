@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.visionin.shop.R;
+import com.visionin.shop.activity2.BigScreenTwoActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -14,7 +15,7 @@ public class ScreenSetActivity extends AppCompatActivity {
 
     @OnClick(R.id.bigset_start)
     public void startBigScreen(View v){
-        Intent intent = new Intent(this, BigScreenActivity.class);
+        Intent intent = new Intent(this, BigScreenTwoActivity.class);
         startActivity(intent);
 
     }
