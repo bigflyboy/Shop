@@ -1,5 +1,7 @@
 package com.visionin.shop.activity2;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.koushikdutta.async.http.server.AsyncHttpServer;
+import com.koushikdutta.async.http.server.AsyncHttpServerRequest;
+import com.koushikdutta.async.http.server.AsyncHttpServerResponse;
+import com.koushikdutta.async.http.server.HttpServerRequestCallback;
 import com.visionin.shop.Adapter.GoodPagerAdaper;
 import com.visionin.shop.Adapter.GoodsLVAdapter;
 import com.visionin.shop.Beans.GoodsBean;
@@ -33,6 +39,14 @@ public class BigScreenTwoActivity extends BaseActivity {
     private List<View> mViewList;
     private GoodPagerAdaper mGoodPagerAdaper;
     private GoodsLVAdapter mGoodsLVAdapter;
+    private AsyncHttpServer mServer;
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,5 +95,31 @@ public class BigScreenTwoActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    private void startServer(){
+        if(mServer==null){
+            mServer = new AsyncHttpServer();
+        }
+        mServer.get("/lockscreen", new HttpServerRequestCallback() {
+            @Override
+            public void onRequest(AsyncHttpServerRequest request, AsyncHttpServerResponse response) {
+
+                String status = request.getQuery().getString("goods_number");
+//                Logger.e(status);
+
+                Message msg = Message.obtain();
+                msg.what = 1;
+                Bundle bundle = new Bundle();
+                bundle.putString("goods_number", status);
+                msg.setData(bundle);
+                mHandler.sendMessage(msg);
+
+                response.send("ok");
+
+            }
+        });
+
+        mServer.listen(5005);
     }
 }

@@ -23,6 +23,7 @@ import com.visionin.shop.Adapter.GoodAdapter;
 import com.visionin.shop.Adapter.GoodPagerAdaper;
 import com.visionin.shop.Beans.GoodsBean;
 import com.visionin.shop.R;
+import com.visionin.shop.activity2.LabelActivity;
 import com.visionin.shop.http.API_ENUM;
 import com.visionin.shop.http.CallbackForRequest;
 import com.visionin.shop.utils.Config;
@@ -182,7 +183,8 @@ public class ShopperActivity extends BaseActivity implements SwipeRefreshLayout.
                 startActivity(intent);
                 return true;
             case R.id.action_search:
-
+                Intent intent1 = new Intent(this, LabelActivity.class);
+                startActivityForResult(intent1, 1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

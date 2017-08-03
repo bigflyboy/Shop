@@ -19,6 +19,8 @@
         android:id="@+id/bigscreen_lv"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+
+    </ListView>
 
 </LinearLayout>

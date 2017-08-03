@@ -19,9 +19,4 @@
 
     </android.support.v7.widget.ButtonBarLayout>
 
-    <com.visionin.shop.view.CounterView
-
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
-
 </LinearLayout>
