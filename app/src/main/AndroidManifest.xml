@@ -72,9 +72,16 @@
         </activity>
         <activity android:name=".activity.ControlSreenActivity">
         </activity>
-        <activity android:name=".activity2.BigScreenTwoActivity"
-                  android:screenOrientation="landscape"
-                  android:theme="@style/AppNoActionBar">
+        <activity
+            android:name=".activity2.BigScreenTwoActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppNoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity android:name=".activity2.LabelActivity">
         </activity>
     </application>
 

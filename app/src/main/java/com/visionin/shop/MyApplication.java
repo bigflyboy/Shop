@@ -3,6 +3,7 @@ package com.visionin.shop;
 import android.app.Application;
 import android.content.Context;
 
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -20,6 +21,8 @@ public class MyApplication extends Application {
         //创建默认的ImageLoader配置参数
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration
                 .createDefault(this);
+
+        TypefaceProvider.registerDefaultIconSets();
 
         //Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(configuration);

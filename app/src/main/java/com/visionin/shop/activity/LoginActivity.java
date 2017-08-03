@@ -111,11 +111,8 @@ public class LoginActivity extends BaseActivity {
                         if(bean.getModel().getType()==1){
                             startActivity(new Intent(LoginActivity.this, ScreenSetActivity.class));
                         }else if(bean.getModel().getType()==2){
-                            startActivity(new Intent(LoginActivity.this, ShopperSetActivity.class));
+                            startActivity(new Intent(LoginActivity.this, ShopperActivity.class));
                         }
-
-
-
 
                         finish();
 //                        String token = (String)SharedPreferencesUtils.getParam(getApplicationContext(), Config.TOKEN, "");

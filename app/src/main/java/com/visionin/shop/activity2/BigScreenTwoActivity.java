@@ -14,7 +14,6 @@ import com.visionin.shop.Adapter.GoodsLVAdapter;
 import com.visionin.shop.Beans.GoodsBean;
 import com.visionin.shop.R;
 import com.visionin.shop.activity.BaseActivity;
-import com.visionin.shop.activity.BigScreenActivity;
 import com.visionin.shop.http.API_ENUM;
 import com.visionin.shop.http.CallbackForRequest;
 import com.visionin.shop.utils.Config;

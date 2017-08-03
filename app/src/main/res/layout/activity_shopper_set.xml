@@ -11,13 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.visionin.shop.activity.ShopperSetActivity">
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/shopper_set_lock"
         android:text="锁定大屏端"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/shopper_get_goods"
         android:text="获取商品列表"
         android:layout_width="match_parent"

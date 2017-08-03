@@ -39,18 +39,21 @@
 
                 <TextView
                     android:id="@+id/good_price"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="商品价格"/>
 
                 <TextView
                     android:id="@+id/good_manufacturer"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="商品厂商"/>
 
                 <TextView
                     android:id="@+id/good_remark"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="商品备注"/>
