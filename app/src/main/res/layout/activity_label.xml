@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.beardedhen.androidbootstrap.BootstrapLabel
+            android:id="@+id/la_tv_shot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -20,6 +21,7 @@
             app:bootstrapHeading="h4"
             android:text="鞋子"/>
         <com.beardedhen.androidbootstrap.BootstrapLabel
+            android:id="@+id/la_tv_shangyi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:bootstrapBrand="danger"
@@ -29,7 +31,7 @@
         <com.beardedhen.androidbootstrap.BootstrapLabel
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/la_tv_niuzai"
             android:layout_margin="8dp"
             app:bootstrapHeading="h4"
             android:text="牛仔裤"/>
@@ -40,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.beardedhen.androidbootstrap.BootstrapLabel
+            android:id="@+id/la_tv_pibao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -47,6 +50,7 @@
             app:bootstrapHeading="h4"
             android:text="皮包"/>
         <com.beardedhen.androidbootstrap.BootstrapLabel
+            android:id="@+id/la_tv_yundong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:bootstrapBrand="warning"
@@ -54,6 +58,7 @@
             app:bootstrapHeading="h4"
             android:text="运动鞋"/>
         <com.beardedhen.androidbootstrap.BootstrapLabel
+            android:id="@+id/la_tv_xiuxian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:bootstrapBrand="info"

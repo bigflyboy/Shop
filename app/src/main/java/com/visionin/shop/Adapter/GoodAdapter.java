@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.visionin.shop.Beans.GoodsBean;
 import com.visionin.shop.R;
 import com.visionin.shop.activity.GoodListActivity;
+import com.visionin.shop.activity.ShopperActivity;
 import com.visionin.shop.callback.ItemClickListener;
 import com.visionin.shop.utils.Config;
 
@@ -91,15 +92,17 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.ViewHolder> im
 
     @Override
     public void onItemClick(View view, int position) {
-        if(mGoodList.get(position)!=null){
-            String resultString = mGoodList.get(position).getGoods_number();
-            Intent resultIntent = new Intent(mContext, GoodListActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN, resultString);
-
-            resultIntent.putExtras(bundle);
-            mContext.startActivity(resultIntent);
-        }
+//        if(mGoodList.get(position)!=null){
+//            String resultString = mGoodList.get(position).getGoods_number();
+//            Intent resultIntent = new Intent(mContext, GoodListActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN, resultString);
+//
+//            resultIntent.putExtras(bundle);
+//            mContext.startActivity(resultIntent);
+//        }
+        ShopperActivity  activity = (ShopperActivity) mContext;
+        activity.connectServer(ShopperActivity.mIp, mGoodList.get(position).getGoods_number(),position+"");
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

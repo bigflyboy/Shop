@@ -53,7 +53,7 @@ public class ScreenListActivity extends BaseActivity implements AdapterView.OnIt
 
     OkHttpClient mOkHttpClient = new OkHttpClient();
 
-    private String mGoodNumber;
+//    private String mGoodNumber;
 
     private String mIp;
 
@@ -73,9 +73,9 @@ public class ScreenListActivity extends BaseActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_screen_list);
         ButterKnife.bind(this);
 //        mListView.setAdapter();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        mGoodNumber = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
+//        mGoodNumber = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
         request(API_ENUM.GET_DNS, new CallbackForRequest<GetDNSBean>() {
             @Override
             public void doSuccess(GetDNSBean bean){
@@ -108,35 +108,40 @@ public class ScreenListActivity extends BaseActivity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-        final String url = "http://"+mBeanList.get(position).getIp()+":5005/lockscreen?goods_number="+mGoodNumber;
+//        final String url = "http://"+mBeanList.get(position).getIp()+":5005/lockscreen?goods_number="+mGoodNumber;
 
         mIp = mBeanList.get(position).getIp();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-//                Logger.e(mGoodNumber);
-                Call call = mOkHttpClient.newCall(request);
-                try {
-                    Response response = call.execute();
-                    String status = response.body().string();
-                    Logger.e(status);
-                    if(status.equals("ok")){
-                        Logger.e("response.body().string()==\"ok\"");
-                        Message msg = new Message();
-                        msg.what = 1;
-                        mHandler.sendMessage(msg);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
-
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Request request = new Request.Builder()
+//                        .url(url)
+//                        .build();
+////                Logger.e(mGoodNumber);
+//                Call call = mOkHttpClient.newCall(request);
+//                try {
+//                    Response response = call.execute();
+//                    String status = response.body().string();
+//                    Logger.e(status);
+//                    if(status.equals("ok")){
+//                        Logger.e("response.body().string()==\"ok\"");
+//                        Message msg = new Message();
+//                        msg.what = 1;
+//                        mHandler.sendMessage(msg);
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }).start();
+        Bundle bundle = new Bundle();
+        bundle.putString("ip", mIp);
+        Intent mIntent = new Intent();
+        mIntent.putExtras(bundle);
+        setResult(RESULT_OK, mIntent);
+        finish();
 
     }
 
